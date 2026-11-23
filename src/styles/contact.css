@@ -171,20 +171,12 @@ html:has(.contact-dialog[open]) {
 }
 
 .contact-dialog .contact-fields {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-cluster) var(--space-xs);
 }
 
-@supports (grid-template-rows: subgrid) {
-  .contact-dialog .contact-field {
-    grid-template-rows: subgrid;
-    grid-row: span 2;
-    row-gap: 0.25rem;
-  }
-
-  .contact-dialog .contact-field:has(small) {
-    grid-row: span 3;
-  }
+.contact-dialog .contact-field {
+  row-gap: 0.25rem;
 }
 
 .contact-dialog .contact-field label {
@@ -206,8 +198,20 @@ html:has(.contact-dialog[open]) {
 }
 
 @media (min-width: 36rem) {
-  .contact-fields {
+  .contact-fields,
+  .contact-dialog .contact-fields {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @supports (grid-template-rows: subgrid) {
+    .contact-dialog .contact-field {
+      grid-template-rows: subgrid;
+      grid-row: span 2;
+    }
+
+    .contact-dialog .contact-field:has(small) {
+      grid-row: span 3;
+    }
   }
 }
 

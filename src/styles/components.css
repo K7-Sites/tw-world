@@ -857,15 +857,14 @@ b {
 .nav-toggle {
   display: none;
   justify-self: end;
+  min-width: 44px;
   min-height: 44px;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 0.8rem;
-  border: 1px solid var(--ink);
+  justify-content: center;
+  border: 0;
   border-radius: 9px;
   color: #fff;
-  background: var(--ink);
-  font-weight: var(--font-weight-medium);
+  background: transparent;
   cursor: pointer;
 }
 
@@ -1750,7 +1749,7 @@ b {
   .main-navigation {
     display: grid;
     grid-column: 1 / -1;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    grid-template-columns: minmax(0, 1fr);
     align-items: stretch;
     gap: 0;
     padding-block: 0 1rem;
@@ -1758,6 +1757,7 @@ b {
 
   .main-navigation > a,
   .nav-courses summary {
+    min-height: 44px;
     padding: 0.8rem;
     border-top: 1px solid rgb(34 43 36 / 20%);
     white-space: normal;
