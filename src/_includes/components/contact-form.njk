@@ -1,0 +1,49 @@
+{% macro contactForm(formId, titleId, locations, compact=false) %}
+<form class="contact-form" method="post" aria-labelledby="{{ titleId }}" data-contact-form>
+  <div class="contact-fields">
+    <div class="contact-field">
+      <label for="{{ formId }}-name">Nome</label>
+      <input id="{{ formId }}-name" name="nome" autocomplete="name" placeholder="{{ 'Seu nome' if compact else 'Seu nome completo' }}" maxlength="120" required>
+    </div>
+    <div class="contact-field">
+      <label for="{{ formId }}-phone">Telefone</label>
+      <input id="{{ formId }}-phone" name="telefone" type="tel" autocomplete="tel" placeholder="(81) 99999-9999" maxlength="25" required>
+    </div>
+    <div class="contact-field">
+      <label for="{{ formId }}-unit">Unidade</label>
+      <select id="{{ formId }}-unit" name="unidade" required>
+        <option value="">{{ 'Selecione' if compact else 'Selecione a unidade' }}</option>
+        {% for unit in locations %}
+          <option value="{{ unit.name | lower }}" data-address="{{ unit.address | escape }}">{{ unit.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="contact-field">
+      <label for="{{ formId }}-email">E-mail</label>
+      <input id="{{ formId }}-email" name="email" type="email" autocomplete="email" placeholder="{{ 'nome@email.com' if compact else 'seuemail@exemplo.com' }}" maxlength="254" required>
+    </div>
+    <div class="contact-field">
+      <label for="{{ formId }}-class">Turma</label>
+      <select id="{{ formId }}-class" name="turma" required>
+        <option value="">{{ 'Selecione' if compact else 'Selecione a turma' }}</option>
+        <option value="kids">Kids</option>
+        <option value="teens">Teens</option>
+        <option value="adult" data-adult>Adult</option>
+        <option value="aged" data-adult>Aged</option>
+      </select>
+    </div>
+    <div class="contact-field">
+      <label for="{{ formId }}-language">Qual idioma quer aprender?</label>
+      <select id="{{ formId }}-language" name="idioma" aria-describedby="{{ formId }}-language-hint" required>
+        <option value="">{{ 'Selecione' if compact else 'Selecione o idioma' }}</option>
+        <option value="ingles">Inglês</option>
+        <option value="frances" data-adults-only>Francês</option>
+        <option value="espanhol" data-adults-only>Espanhol</option>
+      </select>
+      <small id="{{ formId }}-language-hint">Francês e espanhol são exclusivos para adultos.</small>
+    </div>
+  </div>
+  <button type="submit" class="btn btn--primary" aria-describedby="{{ formId }}-status" disabled>Enviar solicitação</button>
+  <p id="{{ formId }}-status" class="contact-status">O envio ainda está indisponível.</p>
+</form>
+{% endmacro %}

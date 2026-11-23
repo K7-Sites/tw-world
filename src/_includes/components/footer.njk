@@ -1,0 +1,35 @@
+{% from "components/social-links.njk" import socialLinks %}
+{% from "components/brand-logo.njk" import brandLogo %}
+{% macro addresses(title, entries) %}
+  <div>
+    <h2>{{ title }}</h2>
+    <dl class="footer-addresses">
+      {% for entry in entries %}
+        <dt>{{ entry.name }}</dt>
+        <dd>{{ entry.address }}</dd>
+      {% endfor %}
+    </dl>
+  </div>
+{% endmacro %}
+<footer class="site-footer">
+  <div class="container container--wide">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="footer-brand-link" href="/" aria-label="TW Idiomas — início">
+          {{ brandLogo("footer-brand-logo", true) }}
+        </a>
+        <p>Você fala, o mundo entende.</p>
+        <div class="footer-socials">{{ socialLinks(site.instagram, site.linkedin, site.facebook, "footer") }}</div>
+      </div>
+      <div>
+        <h2>Contato</h2>
+        <address class="footer-contacts">
+          <a href="tel:{{ site.contact.phoneHref }}">{{ site.contact.phoneLabel }}</a>
+          <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>
+        </address>
+      </div>
+      {{ addresses("Unidades", site.locations) }}
+      {{ addresses("Núcleos", site.educationCenters) }}
+    </div>
+  </div>
+</footer>

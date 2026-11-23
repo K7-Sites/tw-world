@@ -1,0 +1,95 @@
+---
+layout: layouts/base.njk
+title: Styleguide
+description: Prévia interna dos componentes e dos temas por idioma da TW Idiomas.
+---
+{% from "components/ui.njk" import badge, button, card, container, section, sectionTitle %}
+{% set themes = [
+  { code: "en", name: "Inglês", url: "/ingles/" },
+  { code: "fr", name: "Francês", url: "/frances/" },
+  { code: "es", name: "Espanhol", url: "/espanhol/" }
+] %}
+{% set elevations = ["sm", "md", "lg", "glow"] %}
+
+<div class="styleguide">
+  {% call container("wide") %}
+    <header class="section section--compact styleguide-intro">
+      {{ badge("Prévia interna") }}
+      <h1>Styleguide</h1>
+      <p>Componentes, tokens e temas por idioma da TW Idiomas.</p>
+      <nav class="styleguide-nav" aria-label="Seções do Styleguide">
+        {{ button("Tokens", "#tokens", "secondary") }}
+        {% for theme in themes %}
+          {{ button(theme.name, "#" + theme.code, "secondary") }}
+        {% endfor %}
+        {{ button("Superfícies", "#superficies", "secondary") }}
+      </nav>
+    </header>
+  {% endcall %}
+
+  {% call section("tokens", "tokens-title", "light", "wide") %}
+    {{ sectionTitle("Tokens", "tokens-title", "h2", "Jost, cores da marca e medidas compartilhadas.") }}
+    <div class="styleguide-grid">
+      {% call card() %}
+        <div class="styleguide-type">
+          <h3>Tipografia</h3>
+          <p class="lead">Texto introdutório</p>
+          <p>Corpo de texto</p>
+          <small class="styleguide-small">Texto secundário</small>
+        </div>
+      {% endcall %}
+      {% call card() %}
+        <h3>Cores da marca</h3>
+        <div class="styleguide-swatches">
+          {% for token in ["tw-green", "tw-purple", "heading-color", "ink", "surface", "border"] %}
+            <div><span class="styleguide-swatch" style="--swatch: var(--{{ token }})"></span>{{ token }}</div>
+          {% endfor %}
+        </div>
+      {% endcall %}
+      {% call card() %}
+        <h3>Layout</h3>
+        <dl class="styleguide-specs">
+          <dt>Containers</dt><dd>76, 100 e 112 rem</dd>
+          <dt>Margens laterais</dt><dd>1 a 4 rem</dd>
+          <dt>Raios</dt><dd>0,5 rem, 1 a 1,5 rem e arredondado</dd>
+        </dl>
+      {% endcall %}
+    </div>
+  {% endcall %}
+
+  {% for theme in themes %}
+    {% call section(theme.code, theme.code + "-title", "gradient", "wide", theme.code) %}
+      {{ sectionTitle(theme.name, theme.code + "-title") }}
+      {% call card("md") %}
+        {{ badge("Tema " + theme.code) }}
+        <div class="styleguide-swatches">
+          <div><span class="styleguide-swatch" style="--swatch: var(--accent)"></span>Acento</div>
+          <div><span class="styleguide-swatch" style="--swatch: var(--highlight)"></span>Destaque</div>
+          <div><span class="styleguide-swatch" style="--swatch: var(--theme-gradient)"></span>Gradiente</div>
+        </div>
+        <nav class="styleguide-actions" aria-label="Botões do tema {{ theme.name }}">
+          {{ button("Primary", theme.url, "primary", true) }}
+          {{ button("Secondary", theme.url, "secondary", true) }}
+          {{ button("Ghost", theme.url, "ghost", true) }}
+        </nav>
+      {% endcall %}
+    {% endcall %}
+  {% endfor %}
+
+  <div class="styleguide-surfaces">
+    {% call section("superficies", "superficies-title", "dark", "reading") %}
+      {{ sectionTitle("Superfícies", "superficies-title", "h2", "Clara nos tokens, escura neste bloco, de marca abaixo e em gradiente nos três temas.") }}
+      {{ button("Ver superfície de marca", "#elevacao", "ghost", true) }}
+    {% endcall %}
+    {% call section("elevacao", "elevacao-title", "brand", "wide") %}
+      {{ sectionTitle("Elevação e movimento", "elevacao-title", "h2", "Os cards entram em sequência ao rolar. A animação respeita a preferência por movimento reduzido.") }}
+      <div class="styleguide-grid" data-reveal-group>
+        {% for elevation in elevations %}
+          {% call card(elevation, true) %}
+            <h3>{{ elevation }}</h3>
+          {% endcall %}
+        {% endfor %}
+      </div>
+    {% endcall %}
+  </div>
+</div>

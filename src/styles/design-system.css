@@ -1,0 +1,296 @@
+[data-lang="en"] {
+  --accent: var(--tw-green-contrast);
+  --highlight: #dcecc2;
+  --theme-gradient: linear-gradient(135deg, var(--paper), var(--highlight));
+}
+
+.heading-accent {
+  color: var(--heading-accent-start, var(--tw-purple));
+  font-weight: var(--font-weight-extrabold);
+  font-style: normal;
+}
+
+:is(.exam-band, .guide-highlight, .section--dark, .section--brand) {
+  --heading-accent-start: color-mix(in srgb, var(--tw-purple) 13%, var(--paper));
+  --heading-accent-end: color-mix(in srgb, var(--tw-green) 24%, var(--paper));
+}
+
+@supports (background-clip: text) {
+  .heading-accent {
+    background-image: linear-gradient(
+      105deg,
+      var(--heading-accent-start, var(--tw-purple)) 10%,
+      var(--heading-accent-end, var(--tw-green-contrast))
+    );
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@media (forced-colors: active) {
+  .heading-accent {
+    background: none;
+    color: CanvasText;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  main h1:has(.heading-accent):not(.hero-enter) {
+    animation: heading-enter var(--motion-base) var(--motion-ease) backwards;
+  }
+}
+
+@keyframes heading-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+[data-lang="fr"] {
+  --accent: #26487e;
+  --highlight: #e0ebfd;
+  --theme-gradient: linear-gradient(120deg, var(--highlight), var(--paper) 82%);
+}
+
+[data-lang="es"] {
+  --accent: #8e3928;
+  --highlight: #f9e1d8;
+  --theme-gradient: linear-gradient(155deg, var(--paper) 15%, var(--highlight));
+}
+
+main[data-lang] :is(.page-hero, .inner-page) {
+  background: var(--theme-gradient);
+}
+
+main[data-lang] .inner-page .pending-panel {
+  border-color: var(--accent);
+}
+
+main[data-lang] .page-hero::before {
+  background: var(--accent);
+}
+
+main[data-lang] :is(.page-hero, .inner-page) .eyebrow {
+  color: var(--accent);
+}
+
+.btn--secondary {
+  border: 2px solid var(--accent, var(--tw-purple));
+  color: var(--accent, var(--tw-purple));
+  background: var(--paper);
+}
+
+.btn--secondary:hover {
+  background: var(--highlight, var(--surface-lilac));
+}
+
+.btn--ghost {
+  color: var(--ghost-color, var(--accent, var(--tw-purple)));
+  background: transparent;
+}
+
+.btn--ghost:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.btn:has(.btn-icon) {
+  gap: var(--space-xs);
+}
+
+.btn-icon {
+  flex: none;
+  inline-size: 1em;
+  block-size: 1em;
+  transition: transform var(--motion-fast) var(--motion-ease);
+}
+
+.card {
+  --card-elevation: var(--shadow-sm);
+  --heading-color: var(--heading-ink);
+  --interaction-outline: var(--tw-purple);
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: var(--card-elevation);
+  transition:
+    box-shadow var(--motion-fast) var(--motion-ease),
+    translate var(--motion-fast) var(--motion-ease);
+}
+
+.card--md {
+  --card-elevation: var(--shadow-md);
+}
+
+.card--lg {
+  --card-elevation: var(--shadow-lg);
+}
+
+.card--glow {
+  --card-elevation: var(--shadow-glow);
+}
+
+.card:focus-within {
+  box-shadow: var(--shadow-glow);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    translate: 0 -3px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .btn:hover .btn-icon {
+    transform: translateX(0.25em);
+  }
+}
+
+.btn:focus-visible .btn-icon {
+  transform: translateX(0.25em);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: calc(var(--space-xs) / 2) var(--space-xs);
+  border-radius: var(--radius-pill);
+  color: var(--accent, var(--tw-green-contrast));
+  background: var(--highlight, var(--surface-sage));
+  font-size: var(--type-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.35;
+}
+
+.section--light {
+  background: var(--surface);
+}
+
+.section--dark,
+.section--brand {
+  --heading-color: var(--paper);
+  --ghost-color: var(--paper);
+  --interaction-outline: var(--paper);
+  color: var(--paper);
+}
+
+.section--dark {
+  background: var(--ink);
+}
+
+.section--brand {
+  background: var(--accent, var(--tw-green-contrast));
+}
+
+.section--gradient {
+  background: var(
+    --theme-gradient,
+    linear-gradient(135deg, var(--surface-sage), var(--surface-lilac))
+  );
+}
+
+:is(.section--dark, .section--brand) :is(a, button):focus-visible {
+  outline-color: var(--interaction-outline);
+}
+
+.section-title {
+  margin-block-end: var(--space-grid);
+}
+
+.section-title > :is(h2, h3) {
+  margin-block-end: 0;
+  max-inline-size: none;
+}
+
+.section-title > p {
+  margin-block-start: var(--space-xs);
+  color: inherit;
+}
+
+.styleguide :is(section, article)[id] {
+  scroll-margin-block-start: 8rem;
+}
+
+.styleguide-intro h1 {
+  max-inline-size: none;
+  margin-block-end: var(--space-xs);
+}
+
+.styleguide-intro p {
+  max-inline-size: 55ch;
+  margin-block-end: var(--space-grid);
+  font-size: var(--type-lead);
+}
+
+.styleguide-nav,
+.styleguide-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.styleguide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--space-grid);
+}
+
+.styleguide .card > :last-child {
+  margin-block-end: 0;
+}
+
+.styleguide-type > * {
+  margin: 0;
+}
+
+.styleguide-type > * + * {
+  margin-block-start: var(--space-xs);
+}
+
+.styleguide-small {
+  font-size: var(--type-small);
+}
+
+.styleguide-specs dt {
+  font-weight: var(--font-weight-semibold);
+}
+
+.styleguide-specs dd + dt {
+  margin-block-start: var(--space-xs);
+}
+
+.styleguide-swatches {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xs);
+  margin-block: var(--space-cluster);
+  font-size: var(--type-small);
+  overflow-wrap: anywhere;
+}
+
+.styleguide-swatch {
+  display: block;
+  min-block-size: 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-block-end: var(--space-xs);
+  background: var(--swatch);
+}
+
+.styleguide-surfaces .section {
+  padding-block: var(--space-section-compact);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover {
+    translate: none;
+  }
+
+  .btn:has(.btn-icon):hover,
+  .btn:is(:hover, :focus-visible) .btn-icon {
+    transform: none;
+  }
+}

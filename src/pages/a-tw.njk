@@ -1,0 +1,84 @@
+---
+layout: layouts/base.njk
+permalink: /a-tw/index.html
+title: A TW
+description: Conheça a proposta, a metodologia e a experiência de aprendizagem da TW Idiomas.
+---
+{% from "components/ui.njk" import button %}
+<section class="page-hero" aria-labelledby="page-title">
+  <div class="container container--wide page-hero-grid">
+    <div class="page-hero-copy">
+      <p class="eyebrow">A TW · Transworld Idiomas</p>
+      <h1 id="page-title">Aprender inglês é <span class="heading-accent">viver experiências</span></h1>
+      <p class="lead">{{ courseGuide.about[0] }}</p>
+      <div class="actions">{{ button("CONHEÇA A METODOLOGIA", "#metodologia") }} {{ button("VEJA OS CURSOS", "/ingles/", "outline") }}</div>
+    </div>
+    <figure class="page-hero-media">
+      <img src="/assets/images/hero/turma-feliz-com-a-teacher.jpg" alt="Turma de crianças com a teacher da TW Idiomas." width="1448" height="1086" loading="eager" fetchpriority="high" decoding="async">
+      <figcaption>Experiências que aproximam o inglês da vida real.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="quem-somos-title">
+  <div class="container container--wide editorial-grid">
+    <div class="section-heading section-heading--stacked">
+      <p class="eyebrow">Quem somos</p>
+      <h2 id="quem-somos-title">Uma experiência humana, <span class="heading-accent">dinâmica e significativa</span></h2>
+    </div>
+    <div class="editorial-copy" data-reveal="right">
+      {% for paragraph in courseGuide.about %}<p{% if loop.first %} class="lead"{% endif %}>{{ paragraph }}</p>{% endfor %}
+    </div>
+  </div>
+  <div class="container container--wide values-grid" data-reveal-group>
+    <article class="value-panel value-panel--green" data-reveal>
+      <span class="value-panel-label">01</span>
+      <div><p class="eyebrow">Nossa missão</p><h3>Missão</h3><p>{{ courseGuide.mission }}</p></div>
+    </article>
+    <article class="value-panel value-panel--purple" data-reveal>
+      <span class="value-panel-label">02</span>
+      <div><p class="eyebrow">Nossa visão</p><h3>Visão</h3><p>{{ courseGuide.vision }}</p></div>
+    </article>
+  </div>
+</section>
+
+<section class="section section--muted" id="metodologia" aria-labelledby="metodologia-title">
+  <div class="container container--wide methodology-layout">
+    <div class="methodology-intro">
+      <p class="eyebrow">Metodologia TW</p>
+      <h2 id="metodologia-title">O idioma é vivido em <span class="heading-accent">contextos significativos</span></h2>
+      <p class="lead">{{ courseGuide.methodology.intro }}</p>
+      <p>{{ courseGuide.methodology.supporting }}</p>
+    </div>
+    <ol class="principles-list" data-reveal="right" aria-label="Princípios da Metodologia TW">
+      {% for principle in courseGuide.methodology.principles %}
+        <li><span aria-hidden="true">0{{ loop.index }}</span>{{ principle }}</li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="aprendizado-title">
+  <div class="container container--wide learning-band">
+    <div>
+      <p class="eyebrow">Como o aluno aprende</p>
+      <h2 id="aprendizado-title">Participação ativa, interação e <span class="heading-accent">prática constante</span></h2>
+      <p>As aulas estimulam comunicação, movimento, criatividade, curiosidade e envolvimento emocional com o aprendizado.</p>
+    </div>
+    <ul class="check-list" data-reveal="right">
+      <li>Utilização do inglês em situações significativas</li>
+      <li>Projetos e atividades colaborativas</li>
+      <li>Speaking moments e experiências práticas</li>
+      <li>Desenvolvimento de autonomia e autoconfiança</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section final-section" aria-labelledby="journey-cta-title">
+  <div class="container centered-cta">
+    <p class="eyebrow">Próximo passo</p>
+    <h2 id="journey-cta-title">Encontre uma jornada para <span class="heading-accent">cada fase</span></h2>
+    <p>Conheça os programas de inglês desenvolvidos para diferentes idades e objetivos.</p>
+    {{ button("CONHEÇA OS CURSOS", "/ingles/") }}
+  </div>
+</section>

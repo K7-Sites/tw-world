@@ -1,0 +1,97 @@
+---
+layout: layouts/base.njk
+permalink: /ingles/index.html
+courseLanguage: en
+title: Inglês
+description: Programas de inglês da TW Idiomas para crianças, adolescentes, adultos e melhor idade.
+---
+{% from "components/ui.njk" import button %}
+<section class="page-hero page-hero--courses" aria-labelledby="page-title">
+  <div class="container container--wide page-hero-grid">
+    <div class="page-hero-copy">
+      <p class="eyebrow">Cursos de inglês</p>
+      <h1 id="page-title">Uma jornada para <span class="heading-accent">cada fase da vida</span></h1>
+      <p class="lead">Programas desenvolvidos de acordo com a idade, o estágio linguístico e os objetivos de cada aluno.</p>
+      <div class="actions">{{ button("CONHEÇA OS PROGRAMAS", "#programas") }} {{ button("FALE COM A TW", "/contato/", "outline") }}</div>
+    </div>
+    <div class="course-map" data-reveal="load" aria-label="Programas de inglês da TW">
+      {% for course in courseGuide.courses %}
+        <div><span>0{{ loop.index }}</span><strong>{{ course.name }}</strong><small>{{ course.age }}</small></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="programas" aria-labelledby="programas-title">
+  <div class="container container--wide">
+    <div class="section-heading">
+      <div><p class="eyebrow">Programas TW</p><h2 id="programas-title">Desenvolvimento progressivo e <span class="heading-accent">comunicação real</span></h2></div>
+      <p>Os programas combinam comunicação, experiências práticas, projetos pedagógicos, tecnologia educacional e construção gradual da fluência.</p>
+    </div>
+    <div class="program-grid" data-reveal-group>
+      {% for course in courseGuide.courses %}
+        <article class="program-card" data-reveal>
+          <div class="program-card-topline"><span>0{{ loop.index }}</span><p>{{ course.age }}</p></div>
+          <h3>{{ course.name }}</h3>
+          <p class="program-rhythm">{{ course.rhythm }}</p>
+          <p>{{ course.summary }}</p>
+          <ul class="tag-list" aria-label="Focos do programa {{ course.name }}">
+            {% for focus in course.focus %}<li>{{ focus }}</li>{% endfor %}
+          </ul>
+          {% if course.exam %}<p class="program-exam">{{ course.exam }}</p>{% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--muted" aria-labelledby="metodo-ingles-title">
+  <div class="container container--wide methodology-layout">
+    <div class="methodology-intro">
+      <p class="eyebrow">Metodologia em ação</p>
+      <h2 id="metodo-ingles-title">O inglês é utilizado desde os <span class="heading-accent">primeiros níveis</span></h2>
+      <p class="lead">As experiências pedagógicas incentivam o aluno a participar, interagir, criar, resolver desafios e utilizar o idioma em situações significativas.</p>
+      <p>{{ courseGuide.methodology.supporting }}</p>
+    </div>
+    <div class="skills-panel" data-reveal="right">
+      <p class="skills-panel-kicker">Desenvolvimento integrado</p>
+      <ul>
+        <li><span>01</span><strong>Speaking</strong><small>Comunicação e confiança</small></li>
+        <li><span>02</span><strong>Listening</strong><small>Compreensão em contexto</small></li>
+        <li><span>03</span><strong>Reading</strong><small>Leitura e interpretação</small></li>
+        <li><span>04</span><strong>Writing</strong><small>Produção escrita gradual</small></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="preparacao-title">
+  <div class="container container--wide certification-layout">
+    <div>
+      <p class="eyebrow">Preparação internacional</p>
+      <h2 id="preparacao-title">Contato com <span class="heading-accent">padrões internacionais</span> de aprendizagem</h2>
+      <p>A preparação é integrada ao desenvolvimento linguístico de cada etapa e não representa certificação automática.</p>
+    </div>
+    <div class="certification-cards" data-reveal="right">
+      <article><span>Kids</span><h3>TOEFL Primary®</h3><p>Preparação no programa Magic Kids.</p></article>
+      <article><span>Teens</span><h3>TOEFL Junior®</h3><p>Preparação no programa Super Teens.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section guide-highlight" aria-labelledby="ferias-title">
+  <div class="container container--wide guide-highlight-inner">
+    <div><p class="eyebrow">Curso de férias</p><h2 id="ferias-title">Aprendizagem intensiva com <span class="heading-accent">metodologia ativa</span></h2></div>
+    <p>Programa realizado nos períodos de férias escolares para intensificar o contato com o inglês, fortalecer speaking e compreensão auditiva e dar continuidade à jornada de aprendizagem.</p>
+    {{ button("CONSULTE A TW", "/contato/", "outline") }}
+  </div>
+</section>
+
+<section class="section final-section" aria-labelledby="course-cta-title">
+  <div class="container centered-cta">
+    <p class="eyebrow">Encontre seu curso</p>
+    <h2 id="course-cta-title">Descubra a jornada adequada aos <span class="heading-accent">seus objetivos</span></h2>
+    <p>A equipe TW pode orientar sobre programa, nível e formato de aprendizagem.</p>
+    {{ button("FALE COM A TW", "/contato/") }}
+  </div>
+</section>

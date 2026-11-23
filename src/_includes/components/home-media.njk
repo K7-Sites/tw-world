@@ -1,0 +1,68 @@
+{% macro heroVideoDialog() %}
+<dialog id="hero-video-dialog" class="hero-video-dialog" aria-labelledby="hero-video-title">
+  <div class="hero-video-toolbar">
+    <h2 id="hero-video-title">Conheça a TW</h2>
+    <button type="button" class="school-carousel-button" autofocus aria-label="Fechar vídeo">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <video controls playsinline preload="none" width="1600" height="900" aria-labelledby="hero-video-title"></video>
+  <p data-video-fallback hidden>O vídeo não pôde ser reproduzido. <a>Abrir o arquivo de vídeo</a></p>
+</dialog>
+{% endmacro %}
+
+{% macro journeyArt(journey, edition) %}
+<figure class="journey-art">
+  {% if journey.image %}
+    <img src="{{ journey.image.src }}" alt="{{ journey.image.alt }}" width="{{ journey.image.width }}" height="{{ journey.image.height }}" loading="lazy">
+  {% else %}
+    <svg aria-hidden="true" viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      {% if edition == 1 %}
+        <path d="M12 96C40 96 36 40 68 40s28 56 58 56 27-56 58-56 28 56 54 56"/>
+        <circle cx="68" cy="23" r="8" fill="currentColor"/>
+      {% elif edition == 2 %}
+        <path d="M12 98h55V73h48V48h48V23h65M12 110h68V85h48V60h48V35h52"/>
+        <circle cx="151" cy="32" r="7" fill="currentColor"/>
+      {% elif edition == 3 %}
+        <path d="M8 100 85 23l25 25 29-29M45 110l64-64 26 26 75-75M104 119l64-64 25 25 38-38"/>
+        <circle cx="193" cy="57" r="7" fill="currentColor"/>
+      {% else %}
+        <ellipse cx="123" cy="64" rx="86" ry="29" transform="rotate(-24 123 64)"/>
+        <ellipse cx="123" cy="64" rx="54" ry="36" transform="rotate(-24 123 64)"/>
+        <circle cx="199" cy="27" r="8" fill="currentColor"/>
+      {% endif %}
+    </svg>
+    <figcaption>{{ journey.asset }} · Fotografia de {{ journey.name }} pendente</figcaption>
+  {% endif %}
+</figure>
+{% endmacro %}
+
+{% macro invitePlayer(media) %}
+<div class="invite-player" data-reveal>
+  {% if media.desktop or (media.src and media.captions and media.transcript) %}
+    <video controls playsinline preload="none" width="960" height="540" aria-labelledby="convite-title"{% if media.poster %} poster="{{ media.poster }}"{% endif %}>
+      {% if media.mobile %}<source src="{{ media.mobile }}" media="(max-width: 52rem)" type="video/mp4"{% if media.mobilePoster %} data-poster="{{ media.mobilePoster }}"{% endif %}>{% endif %}
+      <source src="{{ media.desktop or media.src }}">
+      {% if media.captions %}<track default kind="captions" srclang="pt-BR" label="Português" src="{{ media.captions }}">{% endif %}
+    </video>
+    {% if media.transcript %}<details><summary>Transcrição do vídeo</summary><p>{{ media.transcript | escape }}</p></details>{% endif %}
+  {% else %}
+    <div class="invite-screen">
+      <button type="button" disabled aria-label="Reproduzir vídeo-convite da direção" aria-describedby="invite-status">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M7 4v16l14-8z"/></svg>
+      </button>
+    </div>
+    <div class="invite-caption"><strong>Vídeo-convite da direção</strong><small>30–40 segundos</small></div>
+    <p class="pending">Legendas e transcrição pendentes.</p>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{% macro location(name, type, unit) %}
+<article data-reveal>
+  {% if unit.image %}<img src="{{ unit.image.src }}" alt="{{ unit.image.alt }}" width="{{ unit.image.width }}" height="{{ unit.image.height }}" loading="lazy">{% endif %}
+  <p class="card-kicker">{{ type }}</p>
+  <h3>{{ name }}</h3>
+  {% if unit.address and unit.hours %}<p>{{ unit.address }} · {{ unit.hours }}</p>{% else %}<p class="pending">[VALIDAR endereço e horário.]</p>{% endif %}
+</article>
+{% endmacro %}

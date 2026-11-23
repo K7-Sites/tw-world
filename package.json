@@ -1,0 +1,26 @@
+{
+  "name": "tw-idiomas",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run css:build && concurrently -k \"npm:dev:eleventy\" \"npm:dev:css\"",
+    "dev:eleventy": "eleventy --serve --incremental --port=3000",
+    "dev:css": "tailwindcss -i ./src/styles/main.css -o ./_site/assets/main.css --watch",
+    "css:build": "tailwindcss -i ./src/styles/main.css -o ./_site/assets/main.css --minify",
+    "site:build": "eleventy",
+    "build": "npm run site:build && npm run css:build",
+    "check": "node --test tests/*.test.js",
+    "lint": "eslint src/scripts",
+    "format:check": "prettier --check \"src/**/*.{js,css,md}\" \"*.{js,json}\" \"tests/**/*.js\"",
+    "guard:production": "node scripts/check-production.mjs"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.0",
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.0.0"
+  }
+}

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>{{ title }} | {{ site.name }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta name="theme-color" content="#78AC1C">
+  <link rel="stylesheet" href="/assets/main.css">
+  <script type="module" src="/assets/js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  {% include "components/header.njk" %}
+  <main id="conteudo"{% if courseLanguage %} data-lang="{{ courseLanguage }}"{% endif %}>{{ content | safe }}</main>
+  {% include "components/footer.njk" %}
+</body>
+</html>

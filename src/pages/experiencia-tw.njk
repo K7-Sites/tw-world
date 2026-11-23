@@ -1,0 +1,86 @@
+---
+layout: layouts/base.njk
+permalink: /experiencia-tw/index.html
+title: Experiência TW
+description: Conheça o TRAIL, os projetos pedagógicos, o acompanhamento e os ambientes de aprendizagem da TW Idiomas.
+---
+{% from "components/ui.njk" import button %}
+<section class="page-hero page-hero--experience" aria-labelledby="page-title">
+  <div class="container container--wide page-hero-grid">
+    <div class="page-hero-copy">
+      <p class="eyebrow">Experiência TW</p>
+      <h1 id="page-title">O inglês presente <span class="heading-accent">dentro e fora da sala</span></h1>
+      <p class="lead">A aprendizagem acontece através da participação ativa, da interação constante e de experiências que tornam o idioma parte da rotina do aluno.</p>
+      <div class="actions">{{ button("CONHEÇA O TRAIL", "#trail") }} {{ button("VEJA OS PROJETOS", "#projetos", "outline") }}</div>
+    </div>
+    <div class="experience-statement" data-reveal="load" aria-label="Pilares da Experiência TW">
+      <p>Participar</p><p>Experimentar</p><p>Comunicar</p><p>Descobrir</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="trail" aria-labelledby="trail-title">
+  <div class="container container--wide trail-layout">
+    <div class="trail-mark" data-reveal="left" aria-hidden="true"><span>TRAIL</span><small>segunda → sexta</small></div>
+    <div class="trail-copy">
+      <p class="eyebrow">Continuidade da aprendizagem</p>
+      <h2 id="trail-title">Contato frequente com o inglês <span class="heading-accent">ao longo da semana</span></h2>
+      <p class="lead">{{ courseGuide.trail.text }}</p>
+      <ul class="trail-items">
+        {% for item in courseGuide.trail.items %}<li><span aria-hidden="true">0{{ loop.index }}</span>{{ item }}</li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section--muted" id="projetos" aria-labelledby="projetos-title">
+  <div class="container container--wide">
+    <div class="section-heading">
+      <div><p class="eyebrow">Projetos pedagógicos</p><h2 id="projetos-title">O idioma ganha <span class="heading-accent">contexto, propósito e expressão</span></h2></div>
+      <p>Os projetos transformam o inglês em uma experiência conectada à cultura, à leitura, à família e aos interesses dos alunos.</p>
+    </div>
+    <div class="project-list" data-reveal-group>
+      {% for project in courseGuide.projects %}
+        <article data-reveal><span>0{{ loop.index }}</span><div><h3>{{ project.name }}</h3><p>{{ project.text }}</p></div></article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="support-title">
+  <div class="container container--wide">
+    <div class="section-heading">
+      <div><p class="eyebrow">Acompanhamento do aluno</p><h2 id="support-title">Suporte em diferentes momentos <span class="heading-accent">da jornada</span></h2></div>
+      <p>Ferramentas e encontros complementam as aulas e aproximam alunos, família, teachers e coordenação.</p>
+    </div>
+    <div class="support-grid" data-reveal-group>
+      {% for item in courseGuide.support %}
+        <article data-reveal><div class="support-card-mark" aria-hidden="true">{{ loop.index }}</div><h3>{{ item.name }}</h3><p>{{ item.text }}</p></article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--muted" aria-labelledby="ambientes-title">
+  <div class="container container--wide environment-layout">
+    <div class="environment-intro">
+      <p class="eyebrow">Ambientes de aprendizagem</p>
+      <h2 id="ambientes-title">A estrutura também participa <span class="heading-accent">da experiência</span></h2>
+      <p>Os espaços funcionam como extensão das experiências pedagógicas, incentivando comunicação, interação e participação.</p>
+    </div>
+    <ol class="environment-list" data-reveal="right">
+      {% for item in courseGuide.environments %}
+        <li><span>0{{ loop.index }}</span><div><h3>{{ item.name }}</h3><p>{{ item.text }}</p></div></li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section final-section" aria-labelledby="experience-cta-title">
+  <div class="container centered-cta">
+    <p class="eyebrow">Viva a experiência TW</p>
+    <h2 id="experience-cta-title">Conheça uma aprendizagem feita de <span class="heading-accent">presença e prática</span></h2>
+    <p>Explore os programas de inglês ou converse com a equipe TW.</p>
+    <div class="actions">{{ button("CONHEÇA OS CURSOS", "/ingles/") }} {{ button("FALE COM A TW", "/contato/", "outline") }}</div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+{% macro button(text, href, variant="primary", arrow=false) %}
+<a class="btn btn--{{ variant }}" href="{{ href }}">{{ text }}{% if arrow %}<svg class="btn-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>{% endif %}</a>
+{% endmacro %}
+
+{% macro badge(text) %}
+<span class="badge">{{ text }}</span>
+{% endmacro %}
+
+{% macro containerClass(size="default") %}container{% if size != 'default' %} container--{{ size }}{% endif %}{% endmacro %}
+
+{% macro container(size="default") %}
+<div class="{{ containerClass(size) }}">
+  {{ caller() }}
+</div>
+{% endmacro %}
+
+{% macro section(id, titleId, variant="light", size="default", language=false) %}
+<section id="{{ id }}" class="section section--{{ variant }}" aria-labelledby="{{ titleId }}"{% if language %} data-lang="{{ language }}"{% endif %}>
+  <div class="{{ containerClass(size) }}">{{ caller() }}</div>
+</section>
+{% endmacro %}
+
+{% macro sectionTitle(title, id, level="h2", description=false) %}
+<div class="section-heading section-heading--stacked section-title">
+  <{{ level }} id="{{ id }}">{{ title }}</{{ level }}>
+  {% if description %}<p>{{ description }}</p>{% endif %}
+</div>
+{% endmacro %}
+
+{% macro card(elevation="sm", reveal=false) %}
+<article class="info-card card card--{{ elevation }}"{% if reveal %} data-reveal{% endif %}>
+  {{ caller() }}
+</article>
+{% endmacro %}
+
+{% macro placeholder(label, supporting="Material oficial pendente") %}
+<div class="media-placeholder" aria-label="{{ label }}"><span class="media-tag">{{ label }}</span><small>{{ supporting }}</small></div>
+{% endmacro %}

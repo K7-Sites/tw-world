@@ -1,0 +1,45 @@
+{% macro stars(rating) %}
+  <span class="review-stars" aria-hidden="true">{% for n in range(rating) %}<svg width="20" height="20" aria-hidden="true" focusable="false"><use href="#review-star"/></svg>{% endfor %}</span>
+  <span class="sr-only">{{ rating }} de 5 estrelas</span>
+{% endmacro %}
+
+<svg width="0" height="0" aria-hidden="true" focusable="false" class="absolute"><symbol id="review-star" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2.4 2.95 5.98 6.6.96-4.77 4.65 1.12 6.57L12 17.46l-5.9 3.1 1.13-6.57-4.78-4.65 6.6-.96z"/></symbol></svg>
+<header class="review-intro" data-reveal>
+  <h2 id="prova-title">EXCELENTE</h2>
+  {{ stars(5) }}
+  <p>Avaliações publicadas no Google</p>
+  <a href="https://maps.google.com/?cid=16896636319574171073" target="_blank" rel="noopener noreferrer">
+    <img src="/assets/images/brand/google-maps-attribution.svg" width="98" height="18" alt="Google Maps">
+    <span class="sr-only">Perfil da TW Idiomas (abre em nova aba)</span>
+  </a>
+</header>
+<div class="review-carousel" role="region" aria-label="Avaliações publicadas no Google" data-carousel="reviews" data-reveal>
+  <div class="review-controls" role="group" aria-label="Controles das avaliações" hidden>
+    <button type="button" class="school-carousel-button review-toggle" data-carousel-toggle aria-label="Pausar rotação das avaliações">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path class="pause-icon" d="M7 5h3v14H7zm7 0h3v14h-3z"/><path class="play-icon" d="M8 5v14l11-7z"/></svg>
+    </button>
+    <div class="review-arrows">
+      <button type="button" class="school-carousel-button" data-carousel-previous aria-label="Avaliações anteriores"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 4-8 8 8 8"/></svg></button>
+      <button type="button" class="school-carousel-button" data-carousel-next aria-label="Próximas avaliações"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 4 8 8-8 8"/></svg></button>
+    </div>
+  </div>
+  <div class="review-viewport">
+    <div class="review-track" data-carousel-track>
+      {% for review in testimonials | selectattr("approved") | selectattr("quote") | sort(attribute="order") %}
+        {% set longQuote = review.quote.length > 155 %}
+        <article class="review-card" data-carousel-slide>
+          <div class="review-author">
+            <span class="review-initial" aria-hidden="true">{{ review.author | first | upper | escape }}</span>
+            <div>
+              <h3>{{ review.author | escape }}</h3>
+              <small>Avaliação no {{ review.source | escape }}</small>
+            </div>
+          </div>
+          {{ stars(review.rating) }}
+          <blockquote cite="{{ review.url | escape }}">{{ review.quote | truncate(155, false, "…") | escape }}</blockquote>
+          <a href="{{ review.url | escape }}" target="_blank" rel="noopener noreferrer">{% if longQuote %}Leia mais{% else %}Ver no Google{% endif %}<span class="sr-only"> sobre a avaliação de {{ review.author | escape }} no Google Maps (abre em nova aba)</span></a>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</div>

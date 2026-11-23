@@ -1,0 +1,39 @@
+---
+layout: layouts/base.njk
+permalink: /contato/index.html
+title: Contato
+description: Fale com a TW Idiomas sobre sua matrícula e localize as unidades de Recife e Olinda.
+---
+{% from "components/ui.njk" import containerClass %}
+{% from "components/contact-form.njk" import contactForm %}
+{% set defaultUnit = site.locations | first %}
+<section class="section section--light contact-section" aria-labelledby="contact-title">
+  <div class="{{ containerClass("wide") }} contact-grid">
+    <div class="info-card contact-card">
+      <h1 id="contact-title">Vamos fazer sua <span class="heading-accent">matrícula?</span></h1>
+      <p class="lead">Entramos em contato até 24h</p>
+
+      {{ contactForm("contact", "contact-title", site.locations) }}
+    </div>
+
+    <aside class="info-card contact-location" aria-labelledby="contact-location-title">
+      <h2 id="contact-location-title">Onde <span class="heading-accent">estamos</span></h2>
+      <iframe
+        class="contact-map"
+        data-contact-map
+        title="Mapa da unidade {{ defaultUnit.name }}"
+        src="https://maps.google.com/maps?q={{ defaultUnit.address | urlencode }}&amp;output=embed"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+      <div class="contact-map-details">
+        <div aria-live="polite">
+          <h3 data-contact-map-name>{{ defaultUnit.name }}</h3>
+          <p data-contact-map-address>{{ defaultUnit.address }}</p>
+        </div>
+        <a class="btn btn--secondary" data-contact-map-link href="https://www.google.com/maps/search/?api=1&amp;query={{ defaultUnit.address | urlencode }}" target="_blank" rel="noopener noreferrer">Ver no Google Maps</a>
+      </div>
+    </aside>
+  </div>
+</section>
