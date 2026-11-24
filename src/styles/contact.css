@@ -9,19 +9,21 @@
 }
 
 .contact-card,
-.contact-location {
+.contact-map {
   box-shadow: var(--shadow-sm);
 }
 
 .contact-card h1 {
   max-inline-size: 24ch;
   margin-block-end: var(--space-xs);
-  font-size: var(--type-h2);
+  font-size: clamp(1.5rem, 1.25rem + 0.75vw, 1.875rem);
   text-wrap: balance;
 }
 
 .contact-card .lead {
   margin-block-end: var(--space-grid);
+  color: var(--ink-muted);
+  font-size: var(--type-body);
 }
 
 .contact-form {
@@ -36,8 +38,7 @@
   gap: var(--space-xs);
 }
 
-.contact-field label,
-.contact-map-details h3 {
+.contact-field label {
   font-weight: var(--font-weight-semibold);
 }
 
@@ -45,7 +46,7 @@
   inline-size: 100%;
   min-block-size: 3rem;
   padding: 0.6rem 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--ink-muted) 62%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 51%, var(--paper));
   border-radius: var(--radius-sm);
   color: var(--ink);
   background-color: var(--paper);
@@ -60,6 +61,13 @@
 
 .contact-field select option:enabled {
   color: var(--ink);
+}
+
+.contact-field :is(input, select):focus {
+  border-color: var(--tw-purple);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--tw-purple) 15%, transparent),
+    0 0 0.75rem color-mix(in srgb, var(--tw-purple) 16%, transparent);
 }
 
 .contact-field :is(input, select):focus-visible {
@@ -92,9 +100,10 @@
   text-align: center;
 }
 
-.contact-location h2 {
-  margin-block-end: var(--space-cluster);
-  font-size: var(--type-h3);
+.contact-location {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--space-grid);
 }
 
 .contact-map {
@@ -106,18 +115,46 @@
   background: var(--surface-sage);
 }
 
-.contact-map-details {
+.contact-socials {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-cluster);
-  margin-block-start: var(--space-grid);
+  padding: var(--space-grid);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 }
 
-.contact-map-details p {
+.contact-socials h2 {
   margin: 0;
-  color: var(--ink-muted);
+  font-size: var(--type-body);
+}
+
+.contact-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.contact-social-link {
+  display: grid;
+  inline-size: 44px;
+  block-size: 44px;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  color: var(--tw-purple);
+  background: var(--surface-lilac);
+}
+
+.contact-social-link:is(:hover, :focus-visible) {
+  color: var(--paper);
+  background: var(--tw-purple);
+}
+
+.contact-social-icon {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
 }
 
 html:has(.contact-dialog[open]) {

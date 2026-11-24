@@ -21,21 +21,16 @@ function initContactMap() {
   if (!map) return;
 
   const unit = document.querySelector("#contact-unit");
-  const mapName = document.querySelector("[data-contact-map-name]");
-  const mapAddress = document.querySelector("[data-contact-map-address]");
-  const mapLink = document.querySelector("[data-contact-map-link]");
 
   function updateMap() {
     const selected = unit.value ? unit.selectedOptions[0] : unit.options[1];
     const name = selected.textContent;
     const address = selected.dataset.address;
     const query = encodeURIComponent(address);
-    if (mapName.textContent === name) return;
+    const title = `Mapa da unidade ${name}`;
+    if (map.title === title) return;
     map.src = `https://maps.google.com/maps?q=${query}&output=embed`;
-    map.title = `Mapa da unidade ${name}`;
-    mapName.textContent = name;
-    mapAddress.textContent = address;
-    mapLink.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+    map.title = title;
   }
 
   unit.addEventListener("change", updateMap);
