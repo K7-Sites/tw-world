@@ -1,0 +1,6 @@
+{% macro schoolHeroImage(alt, className = "") %}
+  <picture class="school-hero-picture">
+    <source type="image/webp" srcset="/assets/images/hero/turma-feliz-com-a-teacher-480.webp 480w, /assets/images/hero/turma-feliz-com-a-teacher-800.webp 800w, /assets/images/hero/turma-feliz-com-a-teacher-1200.webp 1200w" sizes="(max-width: 52rem) calc(100vw - 2rem), (max-width: 112rem) 47vw, 51rem">
+    <img{% if className %} class="{{ className }}"{% endif %} src="/assets/images/hero/turma-feliz-com-a-teacher.jpg" alt="{{ alt | escape }}" width="1448" height="1086" loading="eager" fetchpriority="high" decoding="async">
+  </picture>
+{% endmacro %}

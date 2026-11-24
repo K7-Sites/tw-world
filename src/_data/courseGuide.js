@@ -3,6 +3,7 @@ export default {
     "Capacitar pessoas a se comunicarem de forma eficaz, promovendo o alcance de metas e objetivos por meio de soluções em idiomas.",
   vision:
     "Ser referencial de excelência em seu ramo de atuação pela ética, confiabilidade e qualidade diferenciada nos serviços prestados.",
+  brandTransition: "A TW Idiomas é a nova marca da Transworld Idiomas.",
   about: [
     "Na TW, acreditamos que aprender inglês vai muito além de estudar regras e memorizar palavras. Aprender um novo idioma é viver experiências, criar conexões, desenvolver confiança e descobrir novas formas de se comunicar com o mundo.",
     "Nossa proposta nasceu do desejo de tornar o aprendizado mais humano, leve, dinâmico e significativo. Aqui, o aluno participa ativamente das aulas, interage, se movimenta, experimenta, se expressa e aprende de forma natural e envolvente.",

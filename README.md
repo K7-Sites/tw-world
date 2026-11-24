@@ -13,14 +13,18 @@ npm install
 npm run dev
 ```
 
-Abrir o endereço informado pelo Eleventy (normalmente `http://localhost:8080`).
+Abrir `http://localhost:3000/`.
 
 ```bash
 npm run build
 npm run check
 ```
 
-**Importante:** este pacote é um protótipo técnico. Todas as páginas usam `noindex` e existem blocos `[VALIDAR]`/`[PENDENTE]`. O comando `npm run guard:production` deve falhar até a aprovação editorial; ele não substitui testes nem revisão humana.
+## Indexação
+
+- O domínio definitivo é `https://transworld.com.br/`. O build gera o sitemap e os metadados desse domínio. O ambiente de revisão mantém `noindex`.
+- Após a autorização de publicação, altere `stage` em `src/_data/site.js` para `PUBLISHED` e configure `TW_ENABLE_INDEXING=1` no ambiente de produção. Execute `npm run guard:production` e gere o build em um diretório limpo.
+- O Blog está fora do sitemap enquanto estiver sem artigos. Ao publicar conteúdo aprovado, remova `seoIndex: false` do template do Blog.
 
 ## Estrutura
 - `src/_includes/layouts`: HTML compartilhado (head/header/footer via layout).

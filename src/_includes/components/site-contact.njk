@@ -1,0 +1,23 @@
+{% from "components/contact-form.njk" import contactForm %}
+<section class="site-contact-cta" aria-labelledby="site-contact-cta-title">
+  <div class="container container--wide">
+    <div class="site-contact-cta-card">
+      <div>
+        <h2 id="site-contact-cta-title">Entre em Contato para mais informações!</h2>
+        <p>Será um prazer para nossa equipe de atendimento responder todas as suas dúvidas.</p>
+      </div>
+      <a class="site-contact-cta-button" href="/contato/" data-journey-contact>Fale conosco</a>
+    </div>
+  </div>
+</section>
+
+<dialog id="journey-contact-dialog" class="contact-dialog" aria-labelledby="journey-contact-title" aria-describedby="journey-contact-subtitle">
+  <div class="contact-dialog-heading">
+    <h2 id="journey-contact-title">Vamos fazer sua <span class="heading-accent">matrícula?</span></h2>
+    <button type="button" class="school-carousel-button" data-close-contact autofocus aria-label="Fechar formulário">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <p id="journey-contact-subtitle">Entramos em contato até 24h</p>
+  {{ contactForm("journey-contact", "journey-contact-title", site.locations, true) }}
+</dialog>

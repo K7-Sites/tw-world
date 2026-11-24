@@ -32,7 +32,6 @@
         <circle cx="199" cy="27" r="8" fill="currentColor"/>
       {% endif %}
     </svg>
-    <figcaption>{{ journey.asset }} · Fotografia de {{ journey.name }} pendente</figcaption>
   {% endif %}
 </figure>
 {% endmacro %}
@@ -48,12 +47,11 @@
     {% if media.transcript %}<details><summary>Transcrição do vídeo</summary><p>{{ media.transcript | escape }}</p></details>{% endif %}
   {% else %}
     <div class="invite-screen">
-      <button type="button" disabled aria-label="Reproduzir vídeo-convite da direção" aria-describedby="invite-status">
+      <button type="button" disabled aria-label="Reproduzir vídeo-convite da direção">
         <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M7 4v16l14-8z"/></svg>
       </button>
     </div>
     <div class="invite-caption"><strong>Vídeo-convite da direção</strong><small>30–40 segundos</small></div>
-    <p class="pending">Legendas e transcrição pendentes.</p>
   {% endif %}
 </div>
 {% endmacro %}
@@ -63,6 +61,6 @@
   {% if unit.image %}<img src="{{ unit.image.src }}" alt="{{ unit.image.alt }}" width="{{ unit.image.width }}" height="{{ unit.image.height }}" loading="lazy">{% endif %}
   <p class="card-kicker">{{ type }}</p>
   <h3>{{ name }}</h3>
-  {% if unit.address and unit.hours %}<p>{{ unit.address }} · {{ unit.hours }}</p>{% else %}<p class="pending">[VALIDAR endereço e horário.]</p>{% endif %}
+  {% if unit.address and unit.hours %}<p>{{ unit.address }} · {{ unit.hours }}</p>{% elif unit.address %}<p>{{ unit.address }}</p>{% endif %}
 </article>
 {% endmacro %}

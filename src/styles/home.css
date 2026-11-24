@@ -113,10 +113,24 @@
   background: var(--border);
   margin-block-start: var(--space-cluster);
 }
+.tw-home .hero-flags {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
 .tw-home .hero-journey {
   min-height: 0;
   padding: 0.65rem clamp(0.5rem, 1.6vw, 1.6rem);
   background: var(--surface);
+}
+.tw-home .hero-flags .hero-journey {
+  padding: 0.55rem clamp(0.65rem, 1.8vw, 1.8rem);
+  background: rgb(255 255 255 / 38%);
+}
+.tw-home .hero-flags img {
+  width: clamp(2.5rem, 4vw, 3.5rem);
+  height: 2rem;
+  border-radius: 0.2rem;
+  object-fit: cover;
+  box-shadow: 0 0.2rem 0.55rem rgb(34 43 36 / 16%);
 }
 .tw-home .hero-journey-icon {
   background: transparent;

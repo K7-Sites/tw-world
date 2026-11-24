@@ -5,6 +5,7 @@ title: A TW
 description: Conheça a proposta, a metodologia e a experiência de aprendizagem da TW Idiomas.
 ---
 {% from "components/ui.njk" import button %}
+{% from "components/school-hero-image.njk" import schoolHeroImage %}
 <section class="page-hero" aria-labelledby="page-title">
   <div class="container container--wide page-hero-grid">
     <div class="page-hero-copy">
@@ -14,7 +15,7 @@ description: Conheça a proposta, a metodologia e a experiência de aprendizagem
       <div class="actions">{{ button("CONHEÇA A METODOLOGIA", "#metodologia") }} {{ button("VEJA OS CURSOS", "/ingles/", "outline") }}</div>
     </div>
     <figure class="page-hero-media">
-      <img src="/assets/images/hero/turma-feliz-com-a-teacher.jpg" alt="Turma de crianças com a teacher da TW Idiomas." width="1448" height="1086" loading="eager" fetchpriority="high" decoding="async">
+      {{ schoolHeroImage("Turma de crianças com a teacher da TW Idiomas.") }}
       <figcaption>Experiências que aproximam o inglês da vida real.</figcaption>
     </figure>
   </div>
@@ -27,7 +28,8 @@ description: Conheça a proposta, a metodologia e a experiência de aprendizagem
       <h2 id="quem-somos-title">Uma experiência humana, <span class="heading-accent">dinâmica e significativa</span></h2>
     </div>
     <div class="editorial-copy" data-reveal="right">
-      {% for paragraph in courseGuide.about %}<p{% if loop.first %} class="lead"{% endif %}>{{ paragraph }}</p>{% endfor %}
+      <p class="lead">{{ courseGuide.brandTransition }}</p>
+      {% for paragraph in courseGuide.about %}<p>{{ paragraph }}</p>{% endfor %}
     </div>
   </div>
   <div class="container container--wide values-grid" data-reveal-group>

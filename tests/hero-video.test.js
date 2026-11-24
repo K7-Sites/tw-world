@@ -28,7 +28,10 @@ test("Hero keeps a working static destination with or without the institutional 
   );
   assert.match(hero, /<\/svg>CONHEÇA A TW<\/a>/);
   assert.match(hero, /<video controls playsinline preload="none"[^>]*><\/video>/);
-  assert.doesNotMatch(hero, /<source\b|autoplay|<video[^>]+src=/);
+  assert.doesNotMatch(hero, /autoplay|<video[^>]+src=/);
+  const dialog = hero.match(/<dialog id="hero-video-dialog"[\s\S]*?<\/dialog>/)[0];
+  assert.doesNotMatch(dialog, /<source\b/);
+  assert.match(hero, /<source type="image\/webp" srcset="[^"]*480\.webp 480w/);
   assert.match(hero, /turma-feliz-com-a-teacher.jpg/);
   const pending = await renderHero(null);
   assert.match(pending, /href="#a-tw">CONHEÇA A TW</);

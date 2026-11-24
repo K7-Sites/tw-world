@@ -2,7 +2,6 @@ export default {
   name: "TW Idiomas",
   historicalName: "Transworld Idiomas",
   locale: "pt-BR",
-  // Confirmar domínio definitivo, contato e dados completos antes da publicação.
   baseUrl: "https://transworld.com.br",
   instagram: "https://www.instagram.com/transworldidiomas/",
   linkedin: "https://www.linkedin.com/company/transworldidiomas/",

@@ -42,26 +42,54 @@ function initContactMap() {
   updateMap();
 }
 
+function initWhereMap() {
+  const picker = document.querySelector("[data-where-map-picker]");
+  if (!picker) return;
+
+  const map = document.querySelector("[data-where-map]");
+  const mapName = document.querySelector("[data-where-map-name]");
+  const mapAddress = document.querySelector("[data-where-map-address]");
+  const mapLink = document.querySelector("[data-where-map-link]");
+  if (!map || !mapName || !mapAddress || !mapLink) return;
+
+  function updateMap() {
+    const selected = picker.selectedOptions[0];
+    const name = selected.textContent;
+    const address = selected.dataset.address;
+    const query = encodeURIComponent(address);
+
+    map.src = `https://maps.google.com/maps?q=${query}&output=embed`;
+    map.title = `Mapa de ${name}`;
+    mapName.textContent = name;
+    mapAddress.textContent = address;
+    mapLink.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+  }
+
+  picker.addEventListener("change", updateMap);
+}
+
 function initJourneyContact() {
   const dialog = document.querySelector("#journey-contact-dialog");
   if (!dialog?.showModal) return;
 
   const group = dialog.querySelector("[name=turma]");
+  const language = dialog.querySelector("[name=idioma]");
   const closeButton = dialog.querySelector("[data-close-contact]");
   let opener;
 
-  document.querySelectorAll("[data-journey-contact]").forEach((link) => {
-    link.setAttribute("aria-haspopup", "dialog");
-    link.setAttribute("aria-controls", dialog.id);
-    link.addEventListener("click", (event) => {
+  document.querySelectorAll("[data-journey-contact]").forEach((trigger) => {
+    trigger.setAttribute("aria-haspopup", "dialog");
+    trigger.setAttribute("aria-controls", dialog.id);
+    trigger.addEventListener("click", (event) => {
       if (event.defaultPrevented || event.button !== 0) return;
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
-      if (opener !== link) {
-        group.value = link.dataset.contactGroup || "";
+      if (opener !== trigger) {
+        group.value = trigger.dataset.contactGroup || "";
         group.dispatchEvent(new window.Event("change"));
+        language.value = trigger.dataset.contactLanguage || "";
       }
-      opener = link;
+      opener = trigger;
       dialog.showModal();
       event.preventDefault();
     });
@@ -76,5 +104,6 @@ function initJourneyContact() {
 export function initContact() {
   document.querySelectorAll("[data-contact-form]").forEach(initContactForm);
   initContactMap();
+  initWhereMap();
   initJourneyContact();
 }
