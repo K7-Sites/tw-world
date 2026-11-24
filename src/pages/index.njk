@@ -5,8 +5,8 @@ title: Idiomas para aprender de verdade
 description: Conheça a TW Idiomas, seus programas de inglês, francês e espanhol e a experiência de aprendizagem.
 ---
 {% from "components/ui.njk" import button, placeholder %}
-{% from "components/contact-form.njk" import contactForm %}
 {% from "components/home-media.njk" import journeyArt, invitePlayer, location, heroVideoDialog %}
+{% from "components/school-hero-image.njk" import schoolHeroImage %}
 <div class="tw-home">
 <section class="hero section" aria-labelledby="hero-title">
   <div class="hero-backdrop" aria-hidden="true"><div class="hero-shapes" data-hero-parallax></div></div>
@@ -26,24 +26,20 @@ description: Conheça a TW Idiomas, seus programas de inglês, francês e espanh
           {{ button("CONHEÇA A TW", "#a-tw", "outline") }}
         {% endif %}
       </div>
-      {% set heroAudienceLabels = ["KIDS", "TEENS", "ADULT", "AGED"] %}
-      <ul class="hero-journeys" aria-label="Jornadas de aprendizagem">
-        {% for label in heroAudienceLabels %}
-          <li class="hero-journey">
-            <span class="hero-journey-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 4.5h10a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H8l-3.5 3v-3H3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
-                <path d="M10 12.5v2a2 2 0 0 0 2 2h4l3.5 3v-3H21a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-6"/>
-                <path d="m5 10 2-4 2 4M5.8 8.5h2.4M14 12h5M16.5 10.5c0 2.5-1.1 4-3 5M16.5 10.5c0 2.5 1.1 4 3 5"/>
-              </svg>
-            </span>
-            <span>{{ label }}</span>
-          </li>
-        {% endfor %}
+      <ul class="hero-journeys hero-flags" aria-label="Idiomas oferecidos">
+        <li class="hero-journey">
+          <img src="/assets/images/flags/english-united-kingdom.svg" alt="Inglês" width="1200" height="600">
+        </li>
+        <li class="hero-journey">
+          <img src="/assets/images/flags/french-france.svg" alt="Francês" width="900" height="600">
+        </li>
+        <li class="hero-journey">
+          <img src="/assets/images/flags/spanish-spain.svg" alt="Espanhol" width="900" height="600">
+        </li>
       </ul>
     </div>
     <div class="hero-media hero-enter">
-      <img class="hero-image" src="/assets/images/hero/turma-feliz-com-a-teacher.jpg" alt="Crianças e teacher da TW Idiomas em sala de aula." width="1448" height="1086" loading="eager" fetchpriority="high" decoding="async">
+      {{ schoolHeroImage("Crianças e teacher da TW Idiomas em sala de aula.", "hero-image") }}
       <div class="hero-bubbles" aria-hidden="true">
         <span class="hero-bubble hero-enter" data-lang="en" lang="en">Hello!</span>
         <span class="hero-bubble hero-enter" data-lang="fr" lang="fr">Bonjour !</span>
@@ -62,7 +58,16 @@ description: Conheça a TW Idiomas, seus programas de inglês, francês e espanh
     <div class="school-carousel-viewport">
       <div class="school-carousel-track" data-carousel-track>
         <figure class="school-carousel-slide" data-carousel-slide>
-          <img src="/assets/images/hero/image-11.webp" alt="Turma de crianças com a teacher da TW Idiomas." width="1448" height="1086" loading="lazy" decoding="async">
+          <img src="/assets/images/school/espaco-cultura-tw-world-05.webp" alt="Espaço de leitura e estudo da TW Idiomas com livros e mesas." width="1242" height="932" loading="lazy" decoding="async">
+        </figure>
+        <figure class="school-carousel-slide" data-carousel-slide>
+          <img src="/assets/images/school/espaco-escola-tw-world-01.webp" alt="Auditório da TW Idiomas com palco e cadeiras." width="1242" height="932" loading="lazy" decoding="async">
+        </figure>
+        <figure class="school-carousel-slide" data-carousel-slide>
+          <img src="/assets/images/school/espaco-kids-tw-world-02.webp" alt="Sala infantil da TW Idiomas com mesas coloridas e lousa interativa." width="1242" height="932" loading="lazy" decoding="async">
+        </figure>
+        <figure class="school-carousel-slide" data-carousel-slide>
+          <img src="/assets/images/school/curso-ingles-tw-world.webp" alt="Aluno e teacher durante uma atividade em sala de aula na TW Idiomas." width="1242" height="932" loading="lazy" decoding="async">
         </figure>
         <figure class="school-carousel-slide" data-carousel-slide>
           <img src="/assets/images/hero/image-12.webp" alt="Turma de crianças com a teacher da TW Idiomas." width="1448" height="1086" loading="lazy" decoding="async">
@@ -76,14 +81,19 @@ description: Conheça a TW Idiomas, seus programas de inglês, francês e espanh
         <figure class="school-carousel-slide" data-carousel-slide>
           <img src="/assets/images/hero/image-15.webp" alt="Turma de crianças com a teacher da TW Idiomas." width="1448" height="1086" loading="lazy" decoding="async">
         </figure>
-       
+        <figure class="school-carousel-slide" data-carousel-slide>
+          <img src="/assets/images/school/espaco-jogos-tw-world-03.webp" alt="Espaço de jogos da TW Idiomas com mesas de pingue-pongue, aero hockey e pebolim." width="1242" height="932" loading="lazy" decoding="async">
+        </figure>
+        <figure class="school-carousel-slide" data-carousel-slide>
+          <img src="/assets/images/school/espaco-kids-jogos-tw-world-04.webp" alt="Espaço infantil da TW Idiomas preparado para jogos e atividades." width="1242" height="932" loading="lazy" decoding="async">
+        </figure>
       </div>
     </div>
     <div class="school-carousel-controls" role="group" aria-label="Navegação das fotos">
       <button class="school-carousel-button" type="button" data-carousel-previous aria-label="Imagem anterior">
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
       </button>
-      <span class="school-carousel-status" data-carousel-status aria-live="polite">1 / 2</span>
+      <span class="school-carousel-status" data-carousel-status aria-live="polite">1 / 10</span>
       <button class="school-carousel-button" type="button" data-carousel-next aria-label="Próxima imagem">
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
       </button>
@@ -93,7 +103,7 @@ description: Conheça a TW Idiomas, seus programas de inglês, francês e espanh
     <p class="eyebrow">A escola</p>
     <h2 id="historia-title">Transworld Idiomas e <em class="heading-accent">TW Idiomas</em></h2>
     <p data-reveal>{{ courseGuide.about[0] }}</p>
-    <p class="pending">[VALIDAR: copy institucional que explica a transição Transworld → TW.]</p>
+    <p data-reveal>{{ courseGuide.brandTransition }}</p>
     <div class="school-values" data-reveal-group>
       <article class="school-value-card info-card" data-reveal>
         <svg class="school-value-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -152,23 +162,11 @@ description: Conheça a TW Idiomas, seus programas de inglês, francês e espanh
   </div>
 </section>
 
-<dialog id="journey-contact-dialog" class="contact-dialog" aria-labelledby="journey-contact-title" aria-describedby="journey-contact-subtitle">
-  <div class="contact-dialog-heading">
-    <h2 id="journey-contact-title">Vamos fazer sua <span class="heading-accent">matrícula?</span></h2>
-    <button type="button" class="school-carousel-button" data-close-contact autofocus aria-label="Fechar formulário">
-      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"/></svg>
-    </button>
-  </div>
-  <p id="journey-contact-subtitle">Entramos em contato até 24h</p>
-  {{ contactForm("journey-contact", "journey-contact-title", site.locations, true) }}
-</dialog>
-
 <section class="section exam-band" aria-labelledby="cert-title">
   <div class="container editorial-pair">
     <div>
       <p class="eyebrow">Preparação internacional</p>
       <h2 id="cert-title">Preparação para <span class="heading-accent">exames internacionais</span></h2>
-      <p class="pending">[VALIDAR: título e mensagem comercial.]</p>
     </div>
     <div>
       <dl class="exam-list" data-reveal-group>
@@ -188,9 +186,6 @@ description: Conheça a TW Idiomas, seus programas de inglês, francês e espanh
       <h2 id="convite-title">Um convite para <span class="heading-accent">conhecer a TW</span></h2>
       {% if not heroVideo %}
         <p>Vídeo-convite da Janaína, com legendas e transcrição.</p>
-        {% if not (invite.src and invite.captions and invite.transcript) %}
-          <p class="pending" id="invite-status">[PENDENTE: arquivo audiovisual autorizado e legendas.]</p>
-        {% endif %}
       {% endif %}
     </div>
     {{ invitePlayer(heroVideo or invite) }}
@@ -220,7 +215,6 @@ description: Conheça a TW Idiomas, seus programas de inglês, francês e espanh
       <p class="eyebrow">O idioma abre caminhos</p>
       <h2 id="intercambio-title">Oportunidades de <span class="heading-accent">intercâmbio</span></h2>
       <p data-reveal>Acesso e facilitação por meio de parcerias internacionais.</p>
-      <p class="pending">[VALIDAR: condições e mensagem final.]</p>
     </div>
     <img src="/assets/images/sections/oportunidades-de-intercambio.webp" alt="Duas mulheres observam um globo terrestre ao lado de uma mala de viagem." width="1600" height="900" loading="lazy" decoding="async" data-reveal data-reveal-anchor="top-center">
   </div>

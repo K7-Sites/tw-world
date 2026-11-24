@@ -2,6 +2,90 @@
 layout: layouts/base.njk
 permalink: /onde-estamos/index.html
 title: Onde estamos
-description: Boa Vista — Unidade Central; CIC — Núcleo Educacional. Endereços a confirmar.
+description: Encontre as unidades e os núcleos educacionais da TW Idiomas em Pernambuco.
 ---
-<section class="section inner-page"><div class="container"><p class="eyebrow">TW Idiomas</p><h1>Onde <span class="heading-accent">estamos</span></h1><p class="lead">Boa Vista — Unidade Central; CIC — Núcleo Educacional. Endereços a confirmar.</p><div class="info-card pending-panel"><strong>Conteúdo em preparação</strong><p class="pending">[VALIDAR: copy completa, mídias, informações institucionais e chamadas desta página antes da publicação.]</p></div></div></section>
+{% set recife = site.locations[0] %}
+{% set olinda = site.locations[1] %}
+<section class="page-hero page-hero--locations" aria-labelledby="page-title">
+  <div class="container container--wide page-hero-grid">
+    <div class="page-hero-copy">
+      <p class="eyebrow">Onde estamos</p>
+      <h1 id="page-title">A TW mais <span class="heading-accent">perto de você</span></h1>
+      <p class="lead">Encontre nossas unidades e núcleos educacionais em Recife, Olinda, Palmares e Barreiros.</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="#unidades">VER LOCALIZAÇÕES</a>
+        <button class="btn btn--outline" type="button" data-journey-contact>FALE CONOSCO</button>
+      </div>
+    </div>
+    <div class="where-overview" data-reveal="load" aria-label="Cidades onde a TW Idiomas está presente">
+      <span>Recife</span><span>Olinda</span><span>Palmares</span><span>Barreiros</span>
+      <img class="where-overview-icon" src="/assets/images/icons/global-location-transparent-exact.png" alt="" width="62" height="76">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="unidades" aria-labelledby="unidades-title">
+  <div class="container container--wide">
+    <div class="section-heading">
+      <div><p class="eyebrow">Unidades</p><h2 id="unidades-title">Encontre a <span class="heading-accent">TW Idiomas</span></h2></div>
+      <p>Consulte o endereço e escolha a localização mais próxima.</p>
+    </div>
+    <div class="where-units-grid" data-reveal-group>
+      <article class="where-location-card where-location-card--primary" data-reveal>
+        <div class="where-card-heading"><span aria-hidden="true">01</span><p>Unidade</p></div>
+        <h3>Recife</h3>
+        <address>{{ recife.address }}</address>
+        <div class="where-contact-list">
+          <a href="tel:{{ site.contact.phoneHref }}">{{ site.contact.phoneLabel }}</a>
+          <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>
+        </div>
+        <a class="where-map-link" href="https://www.google.com/maps/search/?api=1&amp;query={{ recife.address | urlencode }}" target="_blank" rel="noopener noreferrer">Como chegar <span aria-hidden="true">↗</span></a>
+      </article>
+      <article class="where-location-card" data-reveal>
+        <div class="where-card-heading"><span aria-hidden="true">02</span><p>Unidade</p></div>
+        <h3>Olinda</h3>
+        <address>{{ olinda.address }}</address>
+        <a class="where-map-link" href="https://www.google.com/maps/search/?api=1&amp;query={{ olinda.address | urlencode }}" target="_blank" rel="noopener noreferrer">Como chegar <span aria-hidden="true">↗</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--muted" id="mapa" aria-labelledby="mapa-title">
+  <div class="container container--wide where-map-layout">
+    <div class="where-map-copy">
+      <p class="eyebrow">Mapa</p>
+      <h2 id="mapa-title">Visualize cada <span class="heading-accent">localização</span></h2>
+      <p>Selecione uma unidade ou núcleo para visualizar o endereço no mapa.</p>
+      <label for="where-map-picker">Escolha uma localização</label>
+      <select id="where-map-picker" data-where-map-picker>
+        {% for unit in site.locations %}<option data-address="{{ unit.address | escape }}">{{ unit.name }}</option>{% endfor %}
+        {% for center in site.educationCenters %}<option data-address="{{ center.address | escape }}">{{ center.name }}</option>{% endfor %}
+      </select>
+      <div class="where-map-selection" aria-live="polite">
+        <strong data-where-map-name>{{ recife.name }}</strong>
+        <span data-where-map-address>{{ recife.address }}</span>
+      </div>
+      <a class="btn btn--outline" data-where-map-link href="https://www.google.com/maps/search/?api=1&amp;query={{ recife.address | urlencode }}" target="_blank" rel="noopener noreferrer">ABRIR NO GOOGLE MAPS</a>
+    </div>
+    <iframe class="where-map-frame" data-where-map title="Mapa da unidade {{ recife.name }}" src="https://maps.google.com/maps?q={{ recife.address | urlencode }}&amp;output=embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="nucleos-title">
+  <div class="container container--wide">
+    <div class="section-heading">
+      <div><p class="eyebrow">Núcleos educacionais</p><h2 id="nucleos-title">TW presente em <span class="heading-accent">instituições parceiras</span></h2></div>
+    </div>
+    <div class="where-centers-grid" data-reveal-group>
+      {% for center in site.educationCenters %}
+        <article class="where-center-card" data-reveal>
+          <span aria-hidden="true">0{{ loop.index }}</span>
+          <h3>{{ center.name }}</h3>
+          <address>{{ center.address }}</address>
+          <a class="where-map-link" href="https://www.google.com/maps/search/?api=1&amp;query={{ center.address | urlencode }}" target="_blank" rel="noopener noreferrer">Ver no mapa <span aria-hidden="true">↗</span></a>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

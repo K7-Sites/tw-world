@@ -11,6 +11,5 @@ export default [
   },
   { label: "Experiência TW", url: "/experiencia-tw/" },
   { label: "Onde estamos", url: "/onde-estamos/" },
-  { label: "Blog", url: "/blog/" },
-  { label: "Contato", url: "/contato/" },
+  { label: "Fale conosco", url: "/contato/" },
 ];
