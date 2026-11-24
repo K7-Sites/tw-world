@@ -10,12 +10,14 @@ const organization = JSON.stringify({
   alternateName: site.historicalName,
   url: origin + "/",
   logo,
+  telephone: site.contact.phoneHref,
+  email: site.contact.email,
   sameAs: [site.instagram, site.linkedin, site.facebook],
 }).replaceAll("<", "\\u003c");
 
 export default {
   origin,
-  logo,
+  socialImage: origin + "/assets/images/brand/tw-idiomas-social.jpg",
   organization,
   allowIndexing: site.stage === "PUBLISHED" && process.env.TW_ENABLE_INDEXING === "1",
 };

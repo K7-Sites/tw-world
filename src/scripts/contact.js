@@ -1,3 +1,35 @@
+const campaignParameters = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+
+function initContactIntent() {
+  const current = new window.URL(window.location.href);
+  document.querySelectorAll('a[href="/contato/"]').forEach((link) => {
+    const destination = new window.URL(link.href);
+    for (const key of campaignParameters) {
+      const value = current.searchParams.get(key);
+      if (value) destination.searchParams.set(key, value);
+    }
+    link.href = destination.pathname + destination.search;
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target.closest?.(
+      '[data-journey-contact], a[href^="tel:"], a[href^="mailto:"], a[href^="/contato/"]',
+    );
+    if (!target) return;
+    const href = target.getAttribute("href") || "";
+    const channel = href.startsWith("tel:")
+      ? "phone"
+      : href.startsWith("mailto:")
+        ? "email"
+        : "form";
+    document.dispatchEvent(
+      new window.CustomEvent("tw:contact-intent", {
+        detail: { channel, path: current.pathname },
+      }),
+    );
+  });
+}
+
 function initContactForm(form) {
   const group = form.elements.turma;
   const language = form.elements.idioma;
@@ -97,6 +129,7 @@ function initJourneyContact() {
 }
 
 export function initContact() {
+  initContactIntent();
   document.querySelectorAll("[data-contact-form]").forEach(initContactForm);
   initContactMap();
   initWhereMap();
