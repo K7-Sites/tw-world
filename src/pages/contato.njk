@@ -6,6 +6,7 @@ description: Fale com a TW Idiomas sobre sua matrícula e localize as unidades d
 ---
 {% from "components/ui.njk" import containerClass %}
 {% from "components/contact-form.njk" import contactForm %}
+{% from "components/social-links.njk" import socialLinks %}
 {% set defaultUnit = site.locations | first %}
 <section class="section section--light contact-section" aria-labelledby="contact-title">
   <div class="{{ containerClass("wide") }} contact-grid">
@@ -16,8 +17,7 @@ description: Fale com a TW Idiomas sobre sua matrícula e localize as unidades d
       {{ contactForm("contact", "contact-title", site.locations) }}
     </div>
 
-    <aside class="info-card contact-location" aria-labelledby="contact-location-title">
-      <h2 id="contact-location-title">Onde <span class="heading-accent">estamos</span></h2>
+    <aside class="contact-location" aria-label="Localização e redes sociais">
       <iframe
         class="contact-map"
         data-contact-map
@@ -27,12 +27,11 @@ description: Fale com a TW Idiomas sobre sua matrícula e localize as unidades d
         referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen
       ></iframe>
-      <div class="contact-map-details">
-        <div aria-live="polite">
-          <h3 data-contact-map-name>{{ defaultUnit.name }}</h3>
-          <p data-contact-map-address>{{ defaultUnit.address }}</p>
+      <div class="contact-socials">
+        <h2>Conecte-se conosco</h2>
+        <div class="contact-social-links">
+          {{ socialLinks(site.instagram, site.linkedin, site.facebook, "contact") }}
         </div>
-        <a class="btn btn--secondary" data-contact-map-link href="https://www.google.com/maps/search/?api=1&amp;query={{ defaultUnit.address | urlencode }}" target="_blank" rel="noopener noreferrer">Ver no Google Maps</a>
       </div>
     </aside>
   </div>
