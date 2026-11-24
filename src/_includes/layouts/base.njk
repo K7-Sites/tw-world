@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% if not seo.allowIndexing or seoIndex == false %}<meta name="robots" content="noindex,nofollow">{% endif %}
-  <title>{{ title }} | {{ site.name }}</title>
-  <meta name="description" content="{{ description }}">
+  <title>{{ title | escape }} | {{ site.name | escape }}</title>
+  <meta name="description" content="{{ description | escape }}">
   <meta name="theme-color" content="#78AC1C">
   {% if seoIndex != false %}
     <link rel="canonical" href="{{ seo.origin }}{{ page.url | escape }}">
@@ -15,7 +15,10 @@
     <meta property="og:title" content="{{ title | escape }} | {{ site.name | escape }}">
     <meta property="og:description" content="{{ description | escape }}">
     <meta property="og:url" content="{{ seo.origin }}{{ page.url | escape }}">
-    <meta property="og:image" content="{{ seo.logo }}">
+    <meta property="og:image" content="{{ seo.socialImage | escape }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ site.name | escape }}">
     {% if page.url == "/" %}<script type="application/ld+json">{{ seo.organization | safe }}</script>{% endif %}
   {% endif %}
   <link rel="stylesheet" href="/assets/main.css">
@@ -24,7 +27,7 @@
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   {% include "components/header.njk" %}
-  <main id="conteudo"{% if courseLanguage %} data-lang="{{ courseLanguage }}"{% endif %}>
+  <main id="conteudo" tabindex="-1"{% if courseLanguage %} data-lang="{{ courseLanguage }}"{% endif %}>
     {{ content | safe }}
     {% include "components/site-contact.njk" %}
   </main>
