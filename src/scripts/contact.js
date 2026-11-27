@@ -1,4 +1,10 @@
 const campaignParameters = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+const contactErrors = {
+  invalid: "Confira os campos e tente novamente.",
+  test_data: "Use os dados fictícios de homologação para testar o envio.",
+  limited: "O limite de tentativas foi atingido. Aguarde alguns minutos.",
+  pending: "O envio ainda não foi confirmado. Confira antes de enviar outra solicitação.",
+};
 
 function initContactIntent() {
   const current = new window.URL(window.location.href);
@@ -30,7 +36,36 @@ function initContactIntent() {
   });
 }
 
+function formatContactPhone(field) {
+  const value = field.value;
+  if (!/^\+?[\d ().-]*$/.test(value)) return;
+  if (value.startsWith("+") && !value.startsWith("+55")) return;
+
+  const prefix = value.startsWith("+55") ? "+55" : "";
+  const digits = value.slice(prefix.length).replace(/\D/g, "");
+  if (digits.length > 11) return;
+
+  const areaCode = digits.slice(0, 2);
+  const number = digits.slice(2);
+  const split = digits.length === 11 ? 5 : 4;
+  const lastDigits = number.slice(split);
+  const national = number
+    ? `(${areaCode}) ${number.slice(0, split)}${lastDigits ? `-${lastDigits}` : ""}`
+    : areaCode;
+  const formatted = [prefix, national].filter(Boolean).join(" ");
+  if (value === formatted) return;
+
+  const cursor = field.selectionStart;
+  const digitsBeforeCursor = value.slice(0, cursor).replace(/\D/g, "").length;
+  const precedingDigit = [...formatted.matchAll(/\d/g)][digitsBeforeCursor - 1];
+  const position =
+    cursor === value.length ? formatted.length : precedingDigit ? precedingDigit.index + 1 : 0;
+  field.value = formatted;
+  field.setSelectionRange(position, position);
+}
+
 function initContactForm(form) {
+  const phone = form.elements.telefone;
   const group = form.elements.turma;
   const language = form.elements.idioma;
   const adultLanguages = language.querySelectorAll("[data-adults-only]");
@@ -43,9 +78,97 @@ function initContactForm(form) {
     if (language.selectedOptions[0]?.disabled) language.value = "";
   }
 
-  form.addEventListener("submit", (event) => event.preventDefault());
+  initContactSubmission(form, updateLanguages);
+  phone.addEventListener("input", (event) => {
+    if (!event.isComposing) formatContactPhone(phone);
+  });
   group.addEventListener("change", updateLanguages);
   updateLanguages();
+}
+
+function initContactSubmission(form, updateLanguages) {
+  const button = form.querySelector('button[type="submit"]');
+  const status = document.getElementById(button.getAttribute("aria-describedby"));
+  const enabled = form.hasAttribute("data-contact-endpoint");
+  const headers = { "X-TW-Contact": "1", "Content-Type": "application/json" };
+  const unconfirmed =
+    "Não foi possível confirmar o envio. Confira antes de enviar outra solicitação.";
+  let lastAttempt;
+  let checking = false;
+  let available = false;
+
+  if (enabled && window.crypto?.randomUUID) {
+    async function checkAvailability() {
+      if (checking || available) return;
+      checking = true;
+      status.textContent = "Verificando disponibilidade do envio…";
+      try {
+        const response = await window.fetch(form.action, {
+          headers: { "X-TW-Contact": "1" },
+          cache: "no-store",
+        });
+        if (response.ok) {
+          const { mode } = await response.json();
+          available = mode === "test" || mode === "live";
+          if (available) {
+            button.disabled = false;
+            status.textContent =
+              mode === "test" ? "Formulário de teste. Use os dados fictícios de homologação." : "";
+          }
+        }
+      } catch {
+        // A later interaction can retry after a temporary network failure.
+      } finally {
+        if (!available) status.textContent = "O envio ainda está indisponível.";
+        checking = false;
+      }
+    }
+
+    form.addEventListener("focusin", checkAvailability);
+    const dialog = form.closest("dialog");
+    if (!dialog || dialog.open) checkAvailability();
+    dialog?.addEventListener("toggle", () => {
+      if (dialog.open) checkAvailability();
+    });
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!enabled || button.disabled) return;
+
+    const fields = Object.fromEntries(new window.FormData(form));
+    const snapshot = JSON.stringify(fields);
+    if (lastAttempt?.snapshot !== snapshot) {
+      lastAttempt = { snapshot, requestId: window.crypto.randomUUID() };
+    }
+
+    button.disabled = true;
+    status.textContent = "Enviando solicitação…";
+    try {
+      const response = await window.fetch(form.action, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ ...fields, requestId: lastAttempt.requestId }),
+      });
+      const result = await response.json();
+      if (response.ok && result.sent === true) {
+        if (snapshot === JSON.stringify(Object.fromEntries(new window.FormData(form)))) {
+          form.reset();
+          updateLanguages();
+          form.elements.unidade.dispatchEvent(new window.Event("change"));
+        }
+        lastAttempt = undefined;
+        status.textContent = "Solicitação enviada.";
+        window.location.assign("/obrigado/");
+      } else {
+        status.textContent = contactErrors[result.error] ?? unconfirmed;
+      }
+    } catch {
+      status.textContent = unconfirmed;
+    } finally {
+      button.disabled = false;
+    }
+  });
 }
 
 function initContactMap() {

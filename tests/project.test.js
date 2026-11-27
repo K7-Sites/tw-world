@@ -35,10 +35,23 @@ test("Jost typography is centralized with the approved weight scale", () => {
   assert.ok(!components.includes("font-weight: 650"));
   assert.ok(!components.includes("font-weight: 900"));
 });
-test("nine page templates exist", () => {
-  assert.equal(
-    readdirSync(new URL("../src/pages/", import.meta.url)).filter((f) => f.endsWith(".njk")).length,
-    9,
+test("institutional templates and the contact confirmation page exist", () => {
+  assert.deepEqual(
+    readdirSync(new URL("../src/pages/", import.meta.url))
+      .filter((file) => file.endsWith(".njk"))
+      .sort(),
+    [
+      "a-tw.njk",
+      "blog.njk",
+      "contato.njk",
+      "espanhol.njk",
+      "experiencia-tw.njk",
+      "frances.njk",
+      "index.njk",
+      "ingles.njk",
+      "obrigado.njk",
+      "onde-estamos.njk",
+    ],
   );
 });
 test("draft blocks must not silently become production content", () => {

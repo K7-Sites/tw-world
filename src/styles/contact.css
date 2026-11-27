@@ -265,3 +265,72 @@ html:has(.contact-dialog[open]) {
     grid-area: 1 / 1;
   }
 }
+
+#obrigado {
+  display: grid;
+  align-items: center;
+  min-block-size: 100vh;
+  min-block-size: 100svh;
+  padding-block: var(--space-section-compact);
+}
+
+.contact-confirmation {
+  max-inline-size: 45rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.contact-confirmation .card {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-cluster);
+  padding: var(--space-card);
+}
+
+.contact-confirmation .card:hover {
+  translate: none;
+}
+
+.contact-confirmation-brand {
+  padding: var(--space-xs) var(--space-cluster);
+  border-radius: var(--radius-sm);
+  background: var(--header-green);
+}
+
+.contact-confirmation-logo {
+  inline-size: clamp(9rem, 28vw, 13rem);
+  block-size: auto;
+}
+
+.contact-confirmation-check {
+  display: grid;
+  place-items: center;
+  inline-size: clamp(3.25rem, 8vw, 4.5rem);
+  aspect-ratio: 1;
+  margin-block-start: var(--space-xs);
+  border-radius: var(--radius-pill);
+  color: var(--tw-green-contrast);
+  background: var(--surface-sage);
+}
+
+.contact-confirmation-check svg {
+  inline-size: 55%;
+}
+
+.contact-confirmation h1 {
+  max-inline-size: 21ch;
+  font-size: var(--type-h2);
+  text-wrap: balance;
+}
+
+.contact-confirmation :is(h1, p) {
+  margin-block: 0;
+}
+
+.contact-confirmation-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-block-start: var(--space-xs);
+}
