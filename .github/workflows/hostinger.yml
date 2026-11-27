@@ -1,0 +1,87 @@
+name: Publicação na Hostinger
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publicar em transworld.com.br após validar o build
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hostinger-production
+  cancel-in-progress: false
+
+jobs:
+  website:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Instalar dependências e testar
+        run: |
+          npm ci
+          npm run lint
+          npm run check
+
+      - name: Gerar o site de produção
+        env:
+          TW_ENABLE_INDEXING: '1'
+          TW_ENABLE_CONTACT: '1'
+        run: |
+          # The checkout is disposable. Keep the repository's draft default for previews.
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+
+          const path = 'src/_data/site.js';
+          const source = readFileSync(path, 'utf8');
+          const draftStage = 'stage: "DRAFT"';
+          if (!source.includes(draftStage)) throw new Error('Etapa DRAFT não encontrada em site.js');
+          writeFileSync(path, source.replace(draftStage, 'stage: "PUBLISHED"'));
+          NODE
+          npm run guard:production
+          npm run build
+          test -s _site/assets/main.css
+          grep -Fxq 'Sitemap: https://transworld.com.br/sitemap.xml' _site/robots.txt
+
+      - name: Publicar arquivos estáticos via SSH
+        if: inputs.publish
+        env:
+          HOSTINGER_SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          HOSTINGER_SSH_PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
+          HOSTINGER_SSH_USER: ${{ secrets.HOSTINGER_SSH_USER }}
+          HOSTINGER_SSH_PRIVATE_KEY: ${{ secrets.HOSTINGER_SSH_PRIVATE_KEY }}
+          HOSTINGER_SSH_KNOWN_HOSTS: ${{ secrets.HOSTINGER_SSH_KNOWN_HOSTS }}
+        run: |
+          if ! grep -Fq 'action="/api/contact.php"' _site/contato/index.html; then
+            echo 'Publicação bloqueada: o build da main não aponta para a API do formulário.' >&2
+            exit 1
+          fi
+
+          install -d -m 700 ~/.ssh
+          umask 077
+          printf '%s\n' "${HOSTINGER_SSH_PRIVATE_KEY:?Chave privada ausente}" > ~/.ssh/tw_deploy
+          printf '%s\n' "${HOSTINGER_SSH_KNOWN_HOSTS:?Chave do servidor ausente}" > ~/.ssh/tw_known_hosts
+          unset HOSTINGER_SSH_PRIVATE_KEY HOSTINGER_SSH_KNOWN_HOSTS
+
+          ssh_command="ssh -p ${HOSTINGER_SSH_PORT:?Porta SSH ausente} -i $HOME/.ssh/tw_deploy -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/tw_known_hosts"
+          remote="${HOSTINGER_SSH_USER:?Usuário SSH ausente}@${HOSTINGER_SSH_HOST:?Host SSH ausente}"
+          destination='domains/transworld.com.br/public_html'
+          $ssh_command "$remote" 'test -f domains/transworld.com.br/public_html/api/contact.php'
+
+          # Retain overwritten files outside public_html and keep the installed PHP API.
+          rsync -rtz --delay-updates --backup \
+            --backup-dir="../.tw-deploy-backups/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" \
+            --exclude='/api/' -e "$ssh_command" _site/ "$remote:$destination/"
