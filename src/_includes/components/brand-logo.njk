@@ -1,6 +1,6 @@
-{% macro brandLogo(className, lazy = false) %}
+{% macro brandLogo(className, lazy = false, alt = "") %}
   <picture>
     <source type="image/webp" srcset="/assets/images/brand/transworld-idiomas-logo-white-360.webp 360w, /assets/images/brand/transworld-idiomas-logo-white-720.webp 720w" sizes="(max-width: 40rem) 11rem, 15rem">
-    <img class="{{ className }}" src="/assets/images/brand/transworld-idiomas-logo-white.png" alt="" width="2172" height="724"{% if lazy %} loading="lazy"{% endif %} decoding="async">
+    <img class="{{ className }}" src="/assets/images/brand/transworld-idiomas-logo-white.png" alt="{{ alt | escape }}" width="2172" height="724"{% if lazy %} loading="lazy"{% endif %} decoding="async">
   </picture>
 {% endmacro %}

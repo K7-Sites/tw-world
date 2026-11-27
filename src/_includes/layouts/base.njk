@@ -21,16 +21,17 @@
     <meta property="og:image:alt" content="{{ site.name | escape }}">
     {% if page.url == "/" %}<script type="application/ld+json">{{ seo.organization | safe }}</script>{% endif %}
   {% endif %}
+  <link rel="icon" href="/assets/images/brand/favicon.svg" type="image/svg+xml" sizes="any">
   <link rel="stylesheet" href="/assets/main.css">
-  <script type="module" src="/assets/js/main.js"></script>
+  {% if not contactConfirmation %}<script type="module" src="/assets/js/main.js?v=contact-confirmation"></script>{% endif %}
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-  {% include "components/header.njk" %}
+  {% if not contactConfirmation %}{% include "components/header.njk" %}{% endif %}
   <main id="conteudo" tabindex="-1"{% if courseLanguage %} data-lang="{{ courseLanguage }}"{% endif %}>
     {{ content | safe }}
-    {% include "components/site-contact.njk" %}
+    {% if not contactConfirmation %}{% include "components/site-contact.njk" %}{% endif %}
   </main>
-  {% include "components/footer.njk" %}
+  {% if not contactConfirmation %}{% include "components/footer.njk" %}{% endif %}
 </body>
 </html>

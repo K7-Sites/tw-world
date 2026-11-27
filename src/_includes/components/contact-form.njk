@@ -1,5 +1,5 @@
-{% macro contactForm(formId, titleId, locations, compact=false) %}
-<form class="contact-form" method="post" aria-labelledby="{{ titleId }}" data-contact-form>
+{% macro contactForm(formId, titleId, locations, endpoint, compact=false) %}
+<form class="contact-form" method="post" aria-labelledby="{{ titleId }}" data-contact-form{% if endpoint %} action="{{ endpoint }}" data-contact-endpoint{% endif %}>
   <div class="contact-fields">
     <div class="contact-field">
       <label for="{{ formId }}-name">Nome</label>
@@ -43,7 +43,13 @@
       <small id="{{ formId }}-language-hint">Francês e espanhol são exclusivos para adultos.</small>
     </div>
   </div>
+  {% if endpoint %}
+    <div hidden>
+      <label for="{{ formId }}-website">Website</label>
+      <input id="{{ formId }}-website" name="website" tabindex="-1" autocomplete="off">
+    </div>
+  {% endif %}
   <button type="submit" class="btn btn--primary" aria-describedby="{{ formId }}-status" disabled>Enviar solicitação</button>
-  <p id="{{ formId }}-status" class="contact-status">O envio ainda está indisponível.</p>
+  <p id="{{ formId }}-status" class="contact-status" role="status">O envio ainda está indisponível.</p>
 </form>
 {% endmacro %}

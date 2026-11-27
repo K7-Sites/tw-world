@@ -1,5 +1,5 @@
 import { initCarousels } from "./carousel.js";
-import { initContact } from "./contact.js";
+import { initContact } from "./contact.js?v=contact-confirmation";
 import { initHeroVideo } from "./hero-video.js";
 import { initHeroParallax, initMotion } from "./motion.js";
 import { initNavigation } from "./navigation.js";

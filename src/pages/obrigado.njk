@@ -1,0 +1,32 @@
+---
+layout: layouts/base.njk
+permalink: /obrigado/index.html
+title: Mensagem enviada com sucesso
+description: Confirmação de envio do formulário da TW Idiomas.
+seoIndex: false
+eleventyExcludeFromCollections: true
+contactConfirmation: true
+---
+{% from "components/brand-logo.njk" import brandLogo %}
+{% from "components/ui.njk" import button, card, section %}
+
+{% call section("obrigado", "contact-confirmation-title", "gradient", "reading") %}
+  <div class="contact-confirmation">
+    {% call card("md") %}
+      <div class="contact-confirmation-brand">
+        {{ brandLogo("contact-confirmation-logo", false, site.historicalName) }}
+      </div>
+      <span class="contact-confirmation-check" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m5 12 4 4L19 6"/>
+        </svg>
+      </span>
+      <h1 id="contact-confirmation-title">Mensagem enviada com sucesso!</h1>
+      <p class="lead">Em instantes, um dos nossos consultores entrará em contato com você. Se preferir, ligue para o número abaixo.</p>
+      <div class="contact-confirmation-actions">
+        {{ button(site.contact.phoneLabel, "tel:" + site.contact.phoneHref) }}
+        {{ button("Voltar para o site", "/", "secondary") }}
+      </div>
+    {% endcall %}
+  </div>
+{% endcall %}

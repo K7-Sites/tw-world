@@ -8,6 +8,7 @@ export default {
   facebook: "https://www.facebook.com/transworldidiomas/",
   contact: {
     email: "falecom@transworld.com.br",
+    endpoint: process.env.TW_ENABLE_CONTACT === "1" ? "/api/contact.php" : "",
     phoneLabel: "(81) 3302-6120",
     phoneHref: "+558133026120",
   },
